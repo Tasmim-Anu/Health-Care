@@ -11,15 +11,25 @@
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box; /* Sobar jonno byabohar kora bhalo */
+            box-sizing: border-box; 
             color: #1F1534;
+        }
+
+        /* Box-sizing globally apply kora holo */
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        /* Helper class: Choto screen-e jeno hard-coded <br> gula line break na kore */
+        .no-br br {
+            display: none;
         }
 
         /* Container, Jeta shob content-ke center-e rakhbe */
         .container {
-            max-width: 1200px; /* Maximum width set kora holo */
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px; /* Dui dike padding jeno choto screen-e jore na jay */
+            padding: 0 15px; 
         }
 
         /* --- HEADER/NAVBAR SECTION (parent1) --- */
@@ -28,13 +38,14 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
-            /* Container use korar jonno ei style gulo container-er baire thakle bhalo */
+            position: relative;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            z-index: 1001; 
         }
 
         .logo p {
@@ -56,10 +67,46 @@
             opacity: 1;
         }
         
-        /* Mobile-er jonno navigation lukie rakha hobe (Media Query-te dekhano hobe) */
+        /* Mobile Menu Button - Hamburger Icon */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 30px;
+            border: none;
+            background: none;
+            color: #1F1534;
+            z-index: 1001;
+        }
+
+        /* Mobile Responsive Navigation (Media Query) */
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block; 
+            }
+
             .nav {
-                display: none; /* Mobile-e nav bar lukiye rakha hobe */
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: white; 
+                padding: 80px 15px 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav.active {
+                display: flex; /* JavaScript diye toggle hobe */
+            }
+
+            .nav a {
+                margin: 10px 0;
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+                text-align: left;
+                margin-left: 0;
             }
         }
 
@@ -70,12 +117,12 @@
             justify-content: space-between;
             gap: 30px;
             padding: 50px 0;
-            flex-wrap: wrap; /* Choto screen-e niche-niche shajabe */
+            flex-wrap: wrap; 
         }
 
         .text {
             flex: 1;
-            min-width: 300px; /* Jeno choto screen-e beshi choto na hoy */
+            min-width: 300px; 
         }
 
         .text h1 {
@@ -105,29 +152,28 @@
         }
 
         .banner img {
-            max-width: 100%; /* Chobi jeno container-er baire na jay */
+            max-width: 100%; 
             height: auto;
-            margin-top: 0; /* Remove fixed margin-top */
         }
 
-        /* Choto screen-e banner chobi niche jabe */
+        /* Hero Section Responsive */
         @media (max-width: 992px) {
             #fram1 {
-                flex-direction: column; /* Column layout for smaller screens */
+                flex-direction: column; 
                 text-align: center;
             }
             .text {
-                order: 2; /* Text niche jabe */
+                order: 2; 
             }
             .banner {
-                order: 1; /* Chobi upore jabe */
+                order: 1; 
             }
         }
         
         /* --- OUR SERVICES SECTION (item1, item2) --- */
         .pa {
             text-align: center;
-            color: #7D7987 !important; /* CSS override kora holo jeno color shothik thake */
+            color: #7D7987 !important;
             margin-bottom: 50px;
         }
 
@@ -144,7 +190,7 @@
 
         #item1, #item2 {
             display: flex;
-            flex-wrap: wrap; /* Shob box jeno niche-niche aste pare */
+            flex-wrap: wrap; 
             justify-content: center;
             gap: 30px;
             padding: 20px 0;
@@ -155,8 +201,8 @@
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            width: calc(33.333% - 40px); /* Desktop-e 3-ti column */
-            min-width: 280px; /* Choto screen-e 1 column-er jonno */
+            flex-basis: calc(33.333% - 20px); 
+            min-width: 280px; 
             box-sizing: border-box;
         }
 
@@ -171,15 +217,17 @@
             font-weight: normal;
         }
 
+        /* Service Box Responsive */
         @media (max-width: 992px) {
             .box {
-                width: calc(50% - 40px); /* Tablet-e 2-ti column */
+                flex-basis: calc(50% - 20px); /* Tablet-e 2-ti column */
             }
         }
 
         @media (max-width: 600px) {
             .box {
-                width: 90%; /* Mobile-e 1-ti column */
+                flex-basis: 100%; /* Mobile-e 1-ti column */
+                min-width: unset;
             }
         }
         
@@ -190,24 +238,26 @@
             margin: 70px 0;
         }
 
-        .learn-more-btn-container button {
+        .learn-more-btn-container button,
+        #item4 button,
+        #item5 button {
             padding: 10px 40px;
             border-radius: 50px;
             background-color: white;
-            border: 2px solid #458FF6;
-            color: #458FF6;
+            border: 2px solid #458FF6 !important;
+            color: #458FF6 !important;
             font-weight: bold;
             cursor: pointer;
         }
 
-        /* --- LEADING PROVIDERS SECTION (item4) --- */
+        /* --- LEADING PROVIDERS & DOWNLOAD APP SECTION (item4 & item5) --- */
         #item4, #item5 {
             display: flex;
             align-items: center;
             gap: 50px;
             padding: 80px 0;
             flex-wrap: wrap;
-            justify-content: center; /* Center content */
+            justify-content: center; 
         }
 
         #item4 img, #item5 img {
@@ -218,6 +268,8 @@
 
         #item4 > div:last-child, #item5 > div:first-child {
             max-width: 450px;
+            flex: 1;
+            min-width: 300px;
         }
 
         #item4 h1, #item5 h1 {
@@ -225,10 +277,25 @@
             font-size: clamp(25px, 4vw, 35px);
         }
 
+        /* Horizontal rule (HR) for item4 h1 */
+        #item4 > div:last-child h1 {
+            position: relative;
+        }
+        #item4 > div:last-child h1::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background: #000;
+            margin: 15px 0 0 0;
+        }
+
+        /* HR fix for item5 h1 (using the hr tag you provided) */
         #item5 > div:first-child h1 hr {
             width: 50px;
             margin-left: 0;
             border: 1px solid #000;
+            margin-top: 15px; /* Spacing */
         }
 
         #item4 p, #item5 p {
@@ -236,44 +303,41 @@
             line-height: 1.8;
         }
 
+        /* Item 5 er layout shothik kora holo (Image right, Text left) */
+        #item5 {
+            flex-direction: row-reverse;
+        }
+
+        /* Leading/Download Section Responsive */
         @media (max-width: 992px) {
-            #item4, #item5 {
+            #item4 {
                 flex-direction: column;
                 text-align: center;
             }
+            #item5 {
+                flex-direction: column-reverse; /* Mobile-e "Download app" upore jabe */
+                text-align: center;
+            }
+            /* Text content center kora holo */
             #item4 > div:last-child, #item5 > div:first-child {
                 text-align: center;
             }
             #item4 h1, #item5 h1 {
                 text-align: center;
             }
+            /* HR center kora holo */
+            #item4 > div:last-child h1::after {
+                margin: 15px auto 0;
+            }
             #item5 > div:first-child h1 hr {
                 margin: 5px auto;
             }
         }
         
-        /* --- DOWNLOAD APP SECTION (item5 specific fix) --- */
-        #item5 {
-            flex-direction: row-reverse; /* Chobi age asbe */
-        }
-
-        @media (max-width: 992px) {
-            #item5 {
-                flex-direction: column; /* Mobile-e abar column */
-            }
-            #item5 > div:first-child {
-                order: 2;
-            }
-            #item5 > div:last-child {
-                order: 1;
-            }
-        }
-
         /* --- TESTIMONIALS SECTION --- */
         .testimonial-bg {
             background: linear-gradient(208.18deg, #67C3F3 9.05%, #5A98F2 76.74%);
-            height: auto;
-            width: 90%; /* Jeno choto screen-e center hoy */
+            width: 90%; 
             max-width: 1000px;
             border-radius: 24px;
             margin: 50px auto;
@@ -312,6 +376,8 @@
             align-items: center;
             gap: 15px;
             min-width: 200px;
+            flex-basis: 300px;
+            justify-content: flex-end; /* Text-er dike align kora holo */
         }
 
         .customer-info img {
@@ -326,19 +392,32 @@
             text-align: left;
         }
 
-        .customer-info p:first-child {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
         .testimonial-text {
             max-width: 450px;
             text-align: left;
             font-size: 15px;
             line-height: 1.8;
             opacity: 0.9;
+            flex-basis: 400px;
         }
 
+        /* Testimonial Responsive */
+        @media (max-width: 768px) {
+            .testimonial-content {
+                flex-direction: column;
+                padding: 0 10px;
+            }
+            .customer-info {
+                justify-content: center; /* Mobile-e center kora holo */
+                margin-bottom: 20px;
+                flex-basis: auto;
+            }
+            .testimonial-text {
+                text-align: center;
+                flex-basis: auto;
+            }
+        }
+        
         /* --- LATEST ARTICLE SECTION (item6) --- */
         #item6 {
             padding: 50px 0;
@@ -354,7 +433,9 @@
         
         .img a {
             display: block;
+            flex-basis: calc(33.333% - 20px);
             max-width: 350px;
+            min-width: 280px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -363,19 +444,38 @@
             transition: transform 0.3s;
         }
         
-        .img a:hover {
-            transform: translateY(-5px);
-        }
-
         .img img {
             width: 100%;
             height: auto;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
         }
-        
-        /* You should add article content here for a better design */
 
+        .article-content {
+            padding: 20px;
+        }
+        .article-content h3 {
+            font-size: 21px;
+            margin-top: 10px;
+        }
+        .article-content p {
+            color: #7D7987;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Article Section Responsive */
+        @media (max-width: 992px) {
+            .img a {
+                flex-basis: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 600px) {
+            .img a {
+                flex-basis: 100%;
+            }
+        }
+        
         /* --- FOOTER SECTION --- */
         .footer {
             background: linear-gradient(183.41deg, #67C3F3 -8.57%, #5A98F2 82.96%);
@@ -392,17 +492,20 @@
             min-width: 200px;
         }
 
+        .footer ul {
+            padding-left: 0; 
+        }
         .footer li {
             list-style: none;
             margin-bottom: 15px;
             opacity: 0.8;
         }
         
-        /* Mobile-e footer-er alignment shothik kora holo */
+        /* Footer Responsive */
         @media (max-width: 768px) {
             .footer {
-                justify-content: flex-start;
-                padding-left: 15px;
+                justify-content: space-between;
+                padding: 50px 15px;
             }
             .footer > div {
                 min-width: 45%;
@@ -410,11 +513,14 @@
         }
         
         @media (max-width: 480px) {
+            .footer {
+                justify-content: flex-start;
+                gap: 20px;
+            }
             .footer > div {
                 min-width: 100%;
             }
         }
-
 
     </style>
 </head>
@@ -426,7 +532,9 @@
                 <p>Trafalgar</p>
             </div>
 
-            <div class="nav">
+            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">&#9776;</button>
+
+            <div class="nav" id="mobile-nav">
                 <a href="">Home</a>
                 <a href=""> Find a doctor</a>
                 <a href=""> Apps</a>
@@ -437,8 +545,8 @@
         
         <div id="fram1">
             <div class="text">
-                <h1>Virtual healthcare<br> for you</h1>
-                <p>Trafalgar provides progressive, and affordable<br>
+                <h1 class="no-br">Virtual healthcare<br> for you</h1>
+                <p class="no-br">Trafalgar provides progressive, and affordable<br>
                 healthcare, accessible on mobile and online<br>
                 for everyone</p>
                 <button>Consult today</button>
@@ -448,41 +556,71 @@
                 <img src="./img/illustration.png" alt="Hero Illustration">
             </div>
         </div>
-    </div> <div class="container">
+    </div> 
+    
+    <div class="container">
         <h1 style="font-size:30px;">Our Services</h1>
         
         <div class="pa">
-            <p> We provide to you the best choiches for you. Adjust it to your health needs and make sure your undergo treatment <br> with our highly qualified doctors you can consult with us which type of service is suitable for your health</p>
+            <p class="no-br"> We provide to you the best choiches for you. Adjust it to your health needs and make sure your undergo treatment <br> with our highly qualified doctors you can consult with us which type of service is suitable for your health</p>
         </div>
         
         <div id="item1">
-            <div class="box"> <img src="./img/mmmm.png" alt="Search doctor icon"> <h3>Search doctor</h3> <h5>
-            Choose your doctor from thousands
-            of specialist, <br> general, and trusted
-            hospitals
-            </h5>  </div>
-            <div class="box"> <img src="./img/Screenshot 2025-09-22 211358.png" alt="Online pharmacy icon"> <h3>Online pharmacy</h3><h5>
-            Buy your medicines with our
-            mobile <br>application with a simple
-            delivery system</h5> </div>
-            <div class="box"> <img src="./img/consultation.png" alt="Consultation icon"><h3>Consultation</h3> <h5>
-            Free consultation with our trusted <br>
-            doctors and get the best
-            recomendations</h5></div>
+            <div class="box"> 
+                <img src="./img/mmmm.png" alt="Search doctor icon"> 
+                <h3>Search doctor</h3> 
+                <h5 class="no-br">
+                    Choose your doctor from thousands
+                    of specialist, <br> general, and trusted
+                    hospitals
+                </h5> 
+            </div>
+            <div class="box"> 
+                <img src="./img/Screenshot 2025-09-22 211358.png" alt="Online pharmacy icon"> 
+                <h3>Online pharmacy</h3>
+                <h5 class="no-br">
+                    Buy your medicines with our
+                    mobile <br>application with a simple
+                    delivery system
+                </h5> 
+            </div>
+            <div class="box"> 
+                <img src="./img/consultation.png" alt="Consultation icon">
+                <h3>Consultation</h3> 
+                <h5 class="no-br">
+                    Free consultation with our trusted <br>
+                    doctors and get the best
+                    recomendations
+                </h5>
+            </div>
         </div> 
 
         <div id="item2">
-            <div class="box"> <img src="./img/details info.png" alt="Details info icon"> <h3>Details info</h3><h5>
-            Free consultation with our trusted
-            doctorsbr <br>
-            and get the best
-            recomendations</h5> </div>
-            <div class="box"> <img src="./img/emargency care.png" alt="Emergency care icon"><h3>Emergency care</h3><h5>
-            You can get 24/7 urgent care for yourself <br> or your children and your lovely family</h5> </div>
-            <div class="box"> <img src="./img/tracking.png" alt="Tracking icon"><h3>Tracking</h3><h5>
-            Track and save your medical history <br>and health data
-
-            Learn more</h5> </div>
+            <div class="box"> 
+                <img src="./img/details info.png" alt="Details info icon"> 
+                <h3>Details info</h3>
+                <h5 class="no-br">
+                    Free consultation with our trusted
+                    doctorsbr <br>
+                    and get the best
+                    recomendations
+                </h5> 
+            </div>
+            <div class="box"> 
+                <img src="./img/emargency care.png" alt="Emergency care icon">
+                <h3>Emergency care</h3>
+                <h5 class="no-br">
+                    You can get 24/7 urgent care for yourself <br> or your children and your lovely family
+                </h5> 
+            </div>
+            <div class="box"> 
+                <img src="./img/tracking.png" alt="Tracking icon">
+                <h3>Tracking</h3>
+                <h5 class="no-br">
+                    Track and save your medical history <br>and health data
+                    Learn more
+                </h5> 
+            </div>
         </div>
         
         <div class="learn-more-btn-container">
@@ -495,8 +633,8 @@
             </div>
             
             <div> 
-                <h1>Leading healthcare <br> providers</h1>
-                <p>Trafalgar provides progressive, and affordable <br> healthcare, accessible on mobile and online for <br> everyone. To us, it’s not just work. We take pride <br>
+                <h1 class="no-br">Leading healthcare <br> providers</h1>
+                <p class="no-br">Trafalgar provides progressive, and affordable <br> healthcare, accessible on mobile and online for <br> everyone. To us, it’s not just work. We take pride <br>
                 in the solutions we deliver</p>
                 <button> Learn More</button>
             </div>
@@ -504,8 +642,8 @@
         
         <div id="item5">
             <div> 
-                <h1>Download our <br> mobile apps <hr></h1>
-                <p> Our dedicated patient engagement app and <br> web portal allow you to access information <br> instantaneously (no tedeous form, long calls, <br> 
+                <h1 class="no-br">Download our <br> mobile apps <hr></h1>
+                <p class="no-br"> Our dedicated patient engagement app and <br> web portal allow you to access information <br> instantaneously (no tedeous form, long calls, <br> 
                 or administrative hassle) and securely </p>
                 <button> Download </button>
             </div>
@@ -526,7 +664,7 @@
                     </div>
                 </div>
                 <div class="testimonial-text">
-                    <p>“Our dedicated patient engagement app and <br>
+                    <p class="no-br">“Our dedicated patient engagement app and <br>
                     web portal allow you to access information instantaneously <br>
                     no tedeous form, long calls, <br>
                     or administrative hassle and securely”</p>
@@ -537,23 +675,44 @@
         <h1 style="font-size: 45px; margin-top: 60px;">Check out our latest article</h1>
 
         <div id="item6">
-             <div class="img">
-               <a href=""> <img src="./img/image 2 (1).png" alt="Article Image 1"> </a>
-               <a href=""> <img src="./img/image 2.png" alt="Article Image 2"> </a> 
-               <a href=""> <img src="./img/image 3.png" alt="Article Image 3"> </a>
-             </div>
+               <div class="img">
+                    <a href=""> 
+                        <img src="./img/image 2 (1).png" alt="Article Image 1"> 
+                         <div class="article-content">
+                            <h3>Disease detection, check up in the laboratory</h3>
+                            <p>In this era, the development of information and communication technology is one of the most important in the medical field.</p>
+                        </div>
+                    </a>
+                    <a href=""> 
+                        <img src="./img/image 2.png" alt="Article Image 2"> 
+                         <div class="article-content">
+                            <h3>Herbal medicines that are safe for consumption</h3>
+                            <p>Herbal medicine is very much safe for you, there are few side effects here for your consumption.</p>
+                        </div>
+                    </a> 
+                    <a href=""> 
+                        <img src="./img/image 3.png" alt="Article Image 3">
+                        <div class="article-content">
+                            <h3>Natural care for healthy facial skin</h3>
+                            <p>A healthy lifestyle should start from now, a few tips for your skin.</p>
+                        </div>
+                    </a>
+               </div>
         </div>
-         <div style="display: flex; justify-content: center; margin-bottom: 50px;">
-             <button style="padding: 15px 50px; background-color:white; color: #458FF6; font-weight: bold; border-radius: 50px; border: 1px solid #458FF6;">View All</button>
-         </div>
+           <div style="display: flex; justify-content: center; margin-bottom: 50px;">
+               <button style="padding: 15px 50px; background-color:white; color: #458FF6; font-weight: bold; border-radius: 50px; border: 1px solid #458FF6;">View All</button>
+           </div>
 
-    </div> <footer class="footer">
+    </div> 
+    
+    <footer class="footer">
         <div> 
-            <div style="display: flex; align-items: center; gap: 7px;"> <button style="border-radius: 100%; width: 30px; height: 30px; background-color: #ffffff;color: #458FF6 ; border: none; font-size: 18px; ">T</button>
+            <div style="display: flex; align-items: center; gap: 7px;"> 
+                <button style="border-radius: 100%; width: 30px; height: 30px; background-color: #ffffff;color: #458FF6 ; border: none; font-size: 18px; ">T</button>
                 <p style="color: white; font-weight: bold;">Trafalgar</p> 
             </div>
             <div>
-                <p style="color: white; font-size: 14px; line-height: 1.8; opacity: 0.8;">Trafalgar provides progressive, and affordable <br> healthcare, accessible on mobile and online <br> for everyone</p>
+                <p class="no-br" style="color: white; font-size: 14px; line-height: 1.8; opacity: 0.8;">Trafalgar provides progressive, and affordable <br> healthcare, accessible on mobile and online <br> for everyone</p>
                 <p style="color: white; font-size: 14px; opacity: 0.6;">©Trafalgar PTY LTD 2020. All rights reserved</p>
             </div>
         </div> 
@@ -568,7 +727,7 @@
             </ul>
         </div>
             
-      
+    
         <div> 
             <h2 style="color: white;">Region</h2>
             <ul>
@@ -588,5 +747,12 @@
             </ul>
         </div>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('mobile-nav');
+            nav.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
